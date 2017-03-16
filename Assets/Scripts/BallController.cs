@@ -25,4 +25,12 @@ public class BallController : MonoBehaviour {
 			rb.AddForce (new Vector3 (0, 100f, 0), ForceMode.Impulse);
 		}
 	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.CompareTag ("MysteryBox"))
+		{
+			other.gameObject.SetActive (false);
+		}
+	}
 }
