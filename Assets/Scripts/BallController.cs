@@ -13,10 +13,16 @@ public class BallController : MonoBehaviour {
 
 	void FixedUpdate () {
 
+		float speedFactor = 300f;
 		float horizontalAxis = Input.GetAxis ("Horizontal");
 		float verticalAxis = Input.GetAxis ("Vertical");
-		Vector3 forceVector = new Vector3 (horizontalAxis, 0, verticalAxis);
+		Vector3 forceVector = new Vector3 (horizontalAxis * speedFactor, 0, verticalAxis * speedFactor);
 
 		rb.AddForce (forceVector, ForceMode.Force);
+
+		if (Input.GetButtonDown ("Fire1") && rb.position.y == 0.5)
+		{
+			rb.AddForce (new Vector3 (0, 100f, 0), ForceMode.Impulse);
+		}
 	}
 }
