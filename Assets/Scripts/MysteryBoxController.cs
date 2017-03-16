@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MysteryBoxController : MonoBehaviour {
-
-
-	void Update () {
-
+public class MysteryBoxController : MonoBehaviour
+{
+	private void rotate()
+	{
 		float angle = 35 * Time.deltaTime;
 
 		transform.Rotate (new Vector3(0, angle, 0));
+	}
+
+	void Update ()
+	{
+		rotate ();
 	}
 }
