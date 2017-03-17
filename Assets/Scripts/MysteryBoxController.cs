@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class MysteryBoxController : MonoBehaviour
 {
+	private bool active = true;
 	private Component[] renderers;
+
+	void Start()
+	{
+		renderers = GetComponentsInChildren<Renderer> ();
+		gameObject.tag = "MysteryBox";
+		Deactivate();
+	}
+
+	void Update ()
+	{
+		rotate ();
+	}
 
 	private void rotate()
 	{
@@ -26,24 +39,20 @@ public class MysteryBoxController : MonoBehaviour
 		}
 	}
 
-	void Activate()
+	public void Activate()
 	{
 		setAlpha (1f);
+		active = true;
 	}
 
-	void Deactivate()
+	public void Deactivate()
 	{
 		setAlpha (0.5f);
+		active = false;
 	}
 
-	void Start()
+	public bool isActive()
 	{
-		renderers = GetComponentsInChildren<Renderer> ();
-		Deactivate();
-	}
-
-	void Update ()
-	{
-		rotate ();
+		return active;
 	}
 }

@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour {
 
+	private GameManagerController gameManagerController;
 	private Rigidbody rb;
 
-	void Start() {
+	public GameObject gameManager;
+
+	private void Start() {
 
 		rb = GetComponent<Rigidbody> ();
+		gameManagerController = gameManager.GetComponent<GameManagerController> ();
 	}
 
-	void FixedUpdate () {
+	private void FixedUpdate () {
 
 		float speedFactor = 300f;
 		float horizontalAxis = Input.GetAxis ("Horizontal");
@@ -26,11 +30,19 @@ public class BallController : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag ("MysteryBox"))
 		{
-			other.gameObject.SendMessage ("Deactivate");
+			MysteryBoxController boxController = other.gameObject.GetComponent<MysteryBoxController> ();
+
+			if (boxController.isActive ())
+			{
+				MysteryBoxesManagerController boxesController = gameManagerController.GetMysteryBoxesManagerController ();
+
+				boxesController.DeactivateOne (other.gameObject);
+				boxesController.ChangeActiveMysteryBoxRandom ();	
+			}
 		}
 	}
 }
