@@ -9,25 +9,34 @@ public class BallController : MonoBehaviour {
 
 	public GameObject gameManager;
 
-	private void Start() {
-
+	private void Start()
+	{
 		rb = GetComponent<Rigidbody> ();
 		gameManagerController = gameManager.GetComponent<GameManagerController> ();
 	}
 
-	private void FixedUpdate () {
+	private void FixedUpdate ()
+	{
+		float speedFactor;
+		float horizontalAxis;
+		float verticalAxis;
+		Vector3 forceVector;
 
-		float speedFactor = 300f;
-		float horizontalAxis = Input.GetAxis ("Horizontal");
-		float verticalAxis = Input.GetAxis ("Vertical");
-		Vector3 forceVector = new Vector3 (horizontalAxis * speedFactor, 0, verticalAxis * speedFactor);
-
-		rb.AddForce (forceVector, ForceMode.Force);
-
-		if (Input.GetButtonDown ("Fire1") && rb.position.y == 0.5)
+		if (SystemInfo.supportsGyroscope)
 		{
-			rb.AddForce (new Vector3 (0, 100f, 0), ForceMode.Impulse);
+			speedFactor = 600f;
+			horizontalAxis = Input.gyro.rotationRate.y;
+			verticalAxis = -Input.gyro.rotationRate.x;
+			rb.drag = 0f;
 		}
+		else
+		{
+			speedFactor = 300f;
+			horizontalAxis = Input.GetAxis ("Horizontal");
+			verticalAxis = Input.GetAxis ("Vertical");
+		}
+		forceVector = new Vector3 (horizontalAxis * speedFactor, 0, verticalAxis * speedFactor);
+		rb.AddForce (forceVector, ForceMode.Force);
 	}
 
 	public void OnTriggerEnter(Collider other)

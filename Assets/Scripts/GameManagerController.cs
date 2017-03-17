@@ -12,6 +12,7 @@ public class GameManagerController : MonoBehaviour
 	private void Start()
 	{
 		mysteryBoxesManagerController = mysteryBoxesManager.GetComponent<MysteryBoxesManagerController> ();
+		Input.gyro.enabled = true;
 	}
 
 	private void Update()
