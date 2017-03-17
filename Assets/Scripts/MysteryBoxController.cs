@@ -13,7 +13,7 @@ public class MysteryBoxController : MonoBehaviour
 		transform.Rotate (new Vector3(0, angle, 0));
 	}
 
-	void setAlpha(float alpha)
+	private void setAlpha(float alpha)
 	{
 		foreach (Renderer renderer in renderers)
 		{
@@ -26,11 +26,20 @@ public class MysteryBoxController : MonoBehaviour
 		}
 	}
 
+	void Activate()
+	{
+		setAlpha (1f);
+	}
+
+	void Deactivate()
+	{
+		setAlpha (0.5f);
+	}
+
 	void Start()
 	{
 		renderers = GetComponentsInChildren<Renderer> ();
-
-		setAlpha (0.5f);
+		Deactivate();
 	}
 
 	void Update ()

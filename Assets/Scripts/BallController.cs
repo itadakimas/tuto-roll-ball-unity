@@ -30,7 +30,7 @@ public class BallController : MonoBehaviour {
 	{
 		if (other.gameObject.CompareTag ("MysteryBox"))
 		{
-			other.gameObject.SendMessage ("setAlpha", 0.5f);
+			other.gameObject.SendMessage ("Deactivate");
 		}
 	}
 }
