@@ -23,7 +23,7 @@ public class BuildManager
         PBXProject project = new PBXProject();
         string xCodeDir = cwd + "/Builds/iOS";
         string pbxprojPath = xCodeDir + "/Unity-iPhone.xcodeproj/project.pbxproj";
-        string exportPlistPath = cwd + "/Export.plist";
+        string exportPlistPath = cwd + "/_iOS/Xcode/Export.plist";
 
         project.ReadFromFile(pbxprojPath);
         project.AddFile(exportPlistPath, exportPlistPath);
