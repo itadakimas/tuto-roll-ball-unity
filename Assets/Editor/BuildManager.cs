@@ -18,7 +18,7 @@ public class BuildManager
         return options;
     }
 
-    private static void ConfigureXcodeProject(string cwd)
+  /*  private static void ConfigureXcodeProject(string cwd)
     {
         PBXProject project = new PBXProject();
         string xCodeDir = cwd + "/Builds/iOS";
@@ -28,7 +28,7 @@ public class BuildManager
         project.ReadFromFile(pbxprojPath);
         project.AddFile(exportPlistPath, exportPlistPath);
         project.WriteToFile(pbxprojPath);
-    }
+    }*/
 
     private static void Fail(string message)
     {
@@ -59,6 +59,6 @@ public class BuildManager
             Fail("Missing -cwd option");
         }
         BuildPipeline.BuildPlayer(PlayerOptionsFactory(BuildTarget.iOS));
-        ConfigureXcodeProject(cwd);
+//        ConfigureXcodeProject(cwd);
     }
 }
