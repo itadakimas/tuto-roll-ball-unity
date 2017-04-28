@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
+using UnityEditor.iOS.Xcode;
 
 public class BuildManager
 {
@@ -16,8 +18,30 @@ public class BuildManager
         return options;
     }
 
+    private static void ConfigureXcodeProject(string cwd)
+    {
+        PBXProject project = new PBXProject();
+        string xCodeDir = cwd + "/Builds/iOS";
+        string pbxprojPath = xCodeDir + "/Unity-iPhone.xcodeproj/project.pbxproj";
+        string exportPlistSourcePath = cwd + "/Export.plist";
+        string exportPlistDestinationPath = xCodeDir + "/Export.plist";
+
+        project.ReadFromFile(pbxprojPath);
+        project.AddFile(exportPlistSourcePath, exportPlistDestinationPath);
+        project.WriteToFile(pbxprojPath);
+    }
+
     public static void BuildIOS()
     {
+        string cwd;
+        string[] args = Environment.GetCommandLineArgs();
+
+        if (args.Length != 1)
+        {
+            throw new Exception("invalid number of argument passed to iOS project build method");
+        }
         BuildPipeline.BuildPlayer(PlayerOptionsFactory(BuildTarget.iOS));
+        cwd = args[0];
+        ConfigureXcodeProject(cwd);
     }
 }
