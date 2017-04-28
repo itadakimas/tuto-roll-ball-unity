@@ -8,7 +8,7 @@ public class BuildManager
     {
         BuildPlayerOptions options = new BuildPlayerOptions();
 
-        string[] scenes = {"Assets/Scenes/RollBallGame.unity"};
+        string[] scenes = {"Assets/_Scenes/RollBallGame.unity"};
         string buildsDirectory = "Builds/";
 
         options.scenes = scenes;
