@@ -34,7 +34,7 @@ public class BuildManager
     private static void Fail(string message)
     {
         Console.Error.Write(message);
-        Environment.Exit(1);
+        EditorApplication.Exit(1);
     }
 
     public static void BuildIOS()
