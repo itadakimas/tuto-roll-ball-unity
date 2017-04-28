@@ -31,6 +31,12 @@ public class BuildManager
         project.WriteToFile(pbxprojPath);
     }
 
+    private static void Fail(string message)
+    {
+        Console.Error.Write(message);
+        Environment.Exit(1);
+    }
+
     public static void BuildIOS()
     {
         string cwd;
@@ -38,7 +44,7 @@ public class BuildManager
 
         if (args.Length != 1)
         {
-            throw new Exception("invalid number of argument passed to iOS project build method");
+            Fail("invalid number of argument passed to iOS project build method");
         }
         BuildPipeline.BuildPlayer(PlayerOptionsFactory(BuildTarget.iOS));
         cwd = args[0];
