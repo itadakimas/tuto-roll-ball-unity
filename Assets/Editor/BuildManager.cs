@@ -37,17 +37,29 @@ public class BuildManager
         EditorApplication.Exit(1);
     }
 
-    public static void BuildIOS()
+    private static string GetArg(string name)
     {
-        string cwd;
         string[] args = Environment.GetCommandLineArgs();
 
-        if (args.Length != 1)
+        for (int i = 0; i < args.Length; i++)
         {
-            Fail("invalid number of argument passed to iOS project build method");
+            if (args[i] == name && args.Length > i + 1)
+            {
+                return args[i + 1];
+            }
+        }
+        return null;
+    }
+
+    public static void BuildIOS()
+    {
+        string cwd = GetArg("-cwd");
+
+        if (cwd == null)
+        {
+            Fail("Missing -cwd option");
         }
         BuildPipeline.BuildPlayer(PlayerOptionsFactory(BuildTarget.iOS));
-        cwd = args[0];
         ConfigureXcodeProject(cwd);
     }
 }
